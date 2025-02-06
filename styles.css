@@ -1,0 +1,22 @@
+const secoes = document.querySelectorAll('.secao');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const alturaJanela = window.innerHeight;
+
+    secoes.forEach((secao, index) => {
+        const inicioSecao = alturaJanela * index;
+        const fimSecao = alturaJanela * (index + 1);
+
+        // Calcula a opacidade com base na posição do scroll
+        if (scrollY >= inicioSecao && scrollY < fimSecao) {
+            const progresso = (scrollY - inicioSecao) / alturaJanela;
+            secao.style.opacity = 1 - progresso;
+            if (index < secoes.length - 1) {
+                secoes[index + 1].style.opacity = progresso;
+            }
+        } else {
+            secao.style.opacity = 0;
+        }
+    });
+});
